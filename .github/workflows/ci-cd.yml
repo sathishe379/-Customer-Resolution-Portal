@@ -34,7 +34,7 @@ jobs:
     - name: Test
       run: dotnet test CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --no-build --configuration Release --verbosity normal
 
-  build-frontend:
+  build-frontend: 
     runs-on: ubuntu-latest
 
     steps:
