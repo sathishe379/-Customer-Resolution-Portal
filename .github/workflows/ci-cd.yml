@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, Development ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main, Development ]
 
 jobs:
   build-and-test:
@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
+        dotnet-quality: 'preview'
 
     - name: Restore dependencies
       run: dotnet restore
@@ -38,14 +39,14 @@ jobs:
       with:
         node-version: '20'
         cache: 'npm'
-        cache-dependency-path: employee-ui/package.json
+        cache-dependency-path: customer-resolution-ui/package-lock.json
 
     - name: Install dependencies
-      working-directory: ./employee-ui
+      working-directory: ./customer-resolution-ui
       run: npm ci
 
     - name: Build frontend
-      working-directory: ./employee-ui
+      working-directory: ./customer-resolution-ui
       run: npm run build
 
   release-readiness:
@@ -60,6 +61,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
+        dotnet-quality: 'preview'
 
     - name: Publish API
       run: dotnet publish --configuration Release --output ./publish
@@ -75,18 +77,18 @@ jobs:
       with:
         node-version: '20'
         cache: 'npm'
-        cache-dependency-path: employee-ui/package.json
+        cache-dependency-path: customer-resolution-ui/package-lock.json
 
     - name: Install frontend dependencies
-      working-directory: ./employee-ui
+      working-directory: ./customer-resolution-ui
       run: npm ci
 
     - name: Build frontend for production
-      working-directory: ./employee-ui
+      working-directory: ./customer-resolution-ui
       run: npm run build
 
     - name: Upload frontend artifact
       uses: actions/upload-artifact@v4
       with:
         name: frontend-build
-        path: ./employee-ui/dist
+        path: ./customer-resolution-ui/dist

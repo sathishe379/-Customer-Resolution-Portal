@@ -22,15 +22,15 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        branch: develop
+        branch: Development
         base: main
-        title: 'Release: Merge develop into main'
+        title: 'Release: Merge Development into main'
         body: |
           ## Release PR
-          This PR promotes all verified changes from `develop` to `main`.
+          This PR promotes all verified changes from `Development` to `main`.
           
           ### Checklist
-          - [ ] All CI checks passed on develop
+          - [ ] All CI checks passed on Development
           - [ ] Code reviewed and approved
           - [ ] Ready for production deployment
         labels: release, promotion
