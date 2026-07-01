@@ -27,6 +27,14 @@ jobs:
 
     - name: Build tests
       run: dotnet build CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --configuration Release
+    - name: Restore test dependencies
+      run: dotnet restore CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj
+
+    - name: Build API
+      run: dotnet build CustomerResolutionApi/CustomerResolutionApi.csproj --no-restore --configuration Release
+
+    - name: Build Tests
+      run: dotnet build CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --no-restore --configuration Release
 
     - name: Test
       run: dotnet test CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --no-build --configuration Release --verbosity normal
@@ -40,7 +48,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
         cache: 'npm'
         cache-dependency-path: customer-resolution-ui/package-lock.json
 
@@ -78,7 +86,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
         cache: 'npm'
         cache-dependency-path: customer-resolution-ui/package-lock.json
 
