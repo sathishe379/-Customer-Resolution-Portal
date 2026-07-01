@@ -100,6 +100,6 @@ public class AppDbContext : DbContext
                 Role = Role.Admin,
                 CreatedDate = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             }
-        );
+        );  
     }
 }
