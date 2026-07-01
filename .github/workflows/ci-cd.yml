@@ -22,11 +22,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore CustomerResolutionApi/CustomerResolutionApi.csproj
 
-    - name: Build API
-      run: dotnet build CustomerResolutionApi/CustomerResolutionApi.csproj --no-restore --configuration Release
-
-    - name: Build tests
-      run: dotnet build CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --configuration Release
     - name: Restore test dependencies
       run: dotnet restore CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj
 
