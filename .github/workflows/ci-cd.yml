@@ -20,13 +20,19 @@ jobs:
         dotnet-quality: 'preview'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore CustomerResolutionApi/CustomerResolutionApi.csproj
 
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
+    - name: Restore test dependencies
+      run: dotnet restore CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj
+
+    - name: Build API
+      run: dotnet build CustomerResolutionApi/CustomerResolutionApi.csproj --no-restore --configuration Release
+
+    - name: Build Tests
+      run: dotnet build CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --no-restore --configuration Release
 
     - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal
+      run: dotnet test CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --no-build --configuration Release --verbosity normal
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -37,7 +43,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
         cache: 'npm'
         cache-dependency-path: customer-resolution-ui/package-lock.json
 
@@ -64,7 +70,7 @@ jobs:
         dotnet-quality: 'preview'
 
     - name: Publish API
-      run: dotnet publish --configuration Release --output ./publish
+      run: dotnet publish CustomerResolutionApi/CustomerResolutionApi.csproj --configuration Release --output ./publish
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
@@ -75,7 +81,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
         cache: 'npm'
         cache-dependency-path: customer-resolution-ui/package-lock.json
 
