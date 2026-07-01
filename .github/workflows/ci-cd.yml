@@ -20,13 +20,16 @@ jobs:
         dotnet-quality: 'preview'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore CustomerResolutionApi/CustomerResolutionApi.csproj
 
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
+    - name: Build API
+      run: dotnet build CustomerResolutionApi/CustomerResolutionApi.csproj --no-restore --configuration Release
+
+    - name: Build tests
+      run: dotnet build CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --configuration Release
 
     - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal
+      run: dotnet test CustomerResolutionApi.Tests/CustomerResolutionApi.Tests.csproj --no-build --configuration Release --verbosity normal
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -64,7 +67,7 @@ jobs:
         dotnet-quality: 'preview'
 
     - name: Publish API
-      run: dotnet publish --configuration Release --output ./publish
+      run: dotnet publish CustomerResolutionApi/CustomerResolutionApi.csproj --configuration Release --output ./publish
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
