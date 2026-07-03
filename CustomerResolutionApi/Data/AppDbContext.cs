@@ -93,7 +93,7 @@ public class AppDbContext : DbContext
             new User
             {
                 Id = 1,
-                FirstName = "System",
+                FirstName = "System Data",
                 LastName = "Admin",
                 Email = "admin@crp.com",
                 PasswordHash = "$2a$11$ssxNQ5YB5Q8E4GmuTk4FneIRe5e8AjwRFtlQQTC.LgG1m2hGF82H6",
